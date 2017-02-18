@@ -147,33 +147,46 @@ public class DFSATrie {
 		System.out.println();
 
 	}
-	
+	/**
+	 * if hasIdentifier(s) == false then we have not dealt with this identifier 
+	 * Step 1: go to switch Table and check if switch[alphabetTable.get(s.getCharAt(0)] == -1 
+	 * Step 2 a: if -1 then we haven't had an identifier that starts with this char
+	 * Step 3: then change switch[alphabetTable.get(s.getCharAt(0)] to symbol.length
+	 * Step 4: add the rest of the identifier into the symbol using the addSymbol() until the end 
+	 * Step 4a: and add either a "*" if it is a reserved word 
+	 * Step 4b: or add a "?" 
+	 * Step 5: add to identifiers List 
+	 * 
+	 * Step 2b: if != -1 then we have found an identifier that starts with that character 
+	 * Step 3: go to the character at the index given by symbol.get(switch[alphabetTable.get(s.getCharAt(0)])
+	 * Step 4: if the characters are the same, then continue parsing through the symbol table 
+	 * 
+	 * Step 4a: until you hit either a character that is different 
+	 * Step 5a: if you have reached a character that is different the set the next of that symbol to symbol.length 
+	 * Step 6: then add the remaining characters to the symbol using the addSymbol() until the end 
+	 * Step 7a: and add either a "*" if it is a reserved word 
+	 * Step 7b: or add a "?" 
+	 * 
+	 * Step 4b: or you have finished all the characters within the identifier but there is no end for the identifier you are currently following 
+	 * Step 5: Set the next to the symbol you are currently checking to symbol.length 
+	 * Step 6: add either a * or a ? to the symbol list
+	 * Step 7: add to identifiers List 
+	 */
+	/**
+	 * else if hasIdentifier(s) == true then we have dealt with this identifier before
+	 * Step 1: go to the character at the index given by symbol.get(switch[alphabetTable.get(s.getCharAt(0)])
+	 * Step 2: if the characters are the same, then continue parsing through the symbol table
+	 * Step 2a: until you hit either a character that is different 
+	 * Step 3: if you have reached a character that is different then go to the next symbol and continue parsing 
+	 * Step 3a: until you reach the end of the word, 
+	 * Step 4: if you reach the end of the word and there is no end marker at the next spot, then use the next array to get the next index 
+	 * Step 5: if the end marker is a * keep it otherwise change the '?' to a '@' symbol  
+	 */
+	/**
+	 * after updating the arrays, add the identifier into our output list and store it 
+	 */
 	private void addIdentifier(String s, char endSymbol){
-		/**
-		 * if hasIdentifier(s) == false then we have not dealt with this identifier 
-		 * Step 1: go to switch Table and check if switch[alphabetTable.get(s.getCharAt(0)] == -1 
-		 * Step 2 a: if -1 then we haven't had an identifier that starts with this char
-		 * Step 3: then change switch[alphabetTable.get(s.getCharAt(0)] to symbol.length
-		 * Step 4: add the rest of the identifier into the symbol using the addSymbol() until the end 
-		 * Step 4a: and add either a "*" if it is a reserved word 
-		 * Step 4b: or add a "?" 
-		 * Step 5: add to identifiers List 
-		 * 
-		 * Step 2b: if != -1 then we have found an identifier that starts with that character 
-		 * Step 3: go to the character at the index given by symbol.get(switch[alphabetTable.get(s.getCharAt(0)])
-		 * Step 4: if the characters are the same, then continue parsing through the symbol table 
-		 * 
-		 * Step 4a: until you hit either a character that is different 
-		 * Step 5a: if you have reached a character that is different the set the next of that symbol to symbol.length 
-		 * Step 6: then add the remaining characters to the symbol using the addSymbol() until the end 
-		 * Step 7a: and add either a "*" if it is a reserved word 
-		 * Step 7b: or add a "?" 
-		 * 
-		 * Step 4b: or you have finished all the characters within the identifier but there is no end for the identifier you are currently following 
-		 * Step 5: Set the next to the symbol you are currently checking to symbol.length 
-		 * Step 6: add either a * or a ? to the symbol list
-		 * Step 7: add to identifiers List 
-		 */
+		
 		
 	}
 	public static void main(String[] args) {
@@ -183,6 +196,7 @@ public class DFSATrie {
 			 * initalize switch table 
 			 */
 			createSwitchTable(); 
+			
 			//			
 			/*
 			 * start file read using a buffered reader 
