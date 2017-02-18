@@ -191,18 +191,57 @@ public class DFSATrie {
 	 */
 	private static void addIdentifier(String s, char endSymbol){
 		if (hasIdentifier(s) ==false){
-		
 			//we haven't dealt with this identifier 
 			System.out.println(alphabetTable.get(s.charAt(0)+""));
 			System.out.println(switchArray[alphabetTable.get(s.charAt(0)+"")]);
 			if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
 				// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
 				switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
+				// add the rest of the symbols to the end of the symbol and next list
 				for (int characterIndex = 1; characterIndex <s.length(); characterIndex++ ){
 					addSymbol(s.charAt(characterIndex));
 				}
 				addSymbol(endSymbol);
 			}
+			else{
+				// there is an identifier that starts with this letter 
+				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
+				for (int charIndex=1; charIndex<s.length(); charIndex++){
+					System.out.println(s.charAt(charIndex) + "Char");
+					if (index !=-1){
+						// we need to parse the symbol array 
+						if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
+							index++;
+							System.out.println("Update Index " + index );
+						}
+						else{
+							System.out.println("ELSE");
+							int tempIndex = index;
+							System.out.println("Temp Index" + tempIndex);
+							index = next.get(index);
+							if (index == -1){
+								System.out.println("need to add to the end of array ");
+								next.set(tempIndex, next.size());
+							}
+							System.out.println("New Index " + index);
+							charIndex --; 
+						}
+					}
+					else { 
+						System.out.println("Outer Else");
+						
+						addSymbol(s.charAt(charIndex));
+						
+					}
+				}
+				System.out.println("Index " + index);
+				if (index>=0){
+					next.set(index, next.size());
+					
+				}
+					addSymbol(endSymbol);
+			}
+			
 			identifiers.add(s);
 		}
 		
@@ -215,6 +254,15 @@ public class DFSATrie {
 			 */
 			createSwitchTable(); 
 			addIdentifier("anuja", '*');
+			printSwitch(); 
+			printSymbolNextArray(); 
+			addIdentifier("an", '*');
+			printSwitch(); 
+			printSymbolNextArray(); 
+			addIdentifier("anujas", '*');
+			printSwitch(); 
+			printSymbolNextArray(); 
+			addIdentifier("ban", '*');
 			printSwitch(); 
 			printSymbolNextArray(); 
 			//			
