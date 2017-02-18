@@ -6,6 +6,10 @@ import java.util.TreeMap;
 
 
 public class DFSATrie {
+//	/**
+//	 * String output is the output that the DFSA is going to add in for the begining 
+//	 */
+//	String output; 
 	/**
 	 * switch array is the array list that contains all the switch start 
 	 */
@@ -22,12 +26,12 @@ public class DFSATrie {
 	/**
 	 * a way of storing all known identifiers to allow for easy lookup / search 
 	 */
-	ArrayList<String> identifiers = new ArrayList<String>();
+	static ArrayList<String> identifiers = new ArrayList<String>();
 	/**
 	 * @param String s 
 	 * @return true if we have already found this identifier in the files
 	 */
-	public boolean hasIdentifier(String s){
+	public static boolean hasIdentifier(String s){
 		if (identifiers.contains(s)){
 			return true;
 		}
@@ -185,8 +189,22 @@ public class DFSATrie {
 	/**
 	 * after updating the arrays, add the identifier into our output list and store it 
 	 */
-	private void addIdentifier(String s, char endSymbol){
+	private static void addIdentifier(String s, char endSymbol){
+		if (hasIdentifier(s) ==false){
 		
+			//we haven't dealt with this identifier 
+			System.out.println(alphabetTable.get(s.charAt(0)+""));
+			System.out.println(switchArray[alphabetTable.get(s.charAt(0)+"")]);
+			if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
+				// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
+				switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
+				for (int characterIndex = 1; characterIndex <s.length(); characterIndex++ ){
+					addSymbol(s.charAt(characterIndex));
+				}
+				addSymbol(endSymbol);
+			}
+			identifiers.add(s);
+		}
 		
 	}
 	public static void main(String[] args) {
@@ -196,7 +214,9 @@ public class DFSATrie {
 			 * initalize switch table 
 			 */
 			createSwitchTable(); 
-			
+			addIdentifier("anuja", '*');
+			printSwitch(); 
+			printSymbolNextArray(); 
 			//			
 			/*
 			 * start file read using a buffered reader 
