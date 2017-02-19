@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 
 public class CS311P2Trie {
@@ -23,12 +24,28 @@ public class CS311P2Trie {
 			while (br.ready()){
 				String [] input = br.readLine().split(" ") ;
 				for (String s: input){
-//					System.out.println(s);
 					trie.processIdentifier(s, '*', false);
 				}
 			}
-			trie.printSwitch();
-			trie.printSymbolNextArray();
+//			trie.printSwitch();
+//			trie.printSymbolNextArray();
+			
+			/**
+			 * start reading the program and processing it 
+			 */
+			fileName = "Proj2_Input2.txt";
+			br = new BufferedReader(new FileReader(fileName));
+			while (br.ready()){
+				String line = br.readLine();
+				//ArrayList <String> identifiers = new ArrayList<String>();
+				String [] identifiers = line.split("[\\p{Punct}\\s]+");
+				for (String s: identifiers){
+					if (s.equals("")){
+						
+					}
+				}
+				
+			}
 
 
 

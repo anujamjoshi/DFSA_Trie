@@ -6,7 +6,7 @@ public class DFSATrie {
 	/**
 	 * ArrayList output is the output that the DFSA is going to add in for the begining 
 	 */
-	static ArrayList<String> output =new ArrayList<String>(); 
+	static String output =""; 
 	/**
 	 * switch array is the array list that contains all the switch start 
 	 */
@@ -203,12 +203,12 @@ public class DFSATrie {
 			}
 			if (symbol.get(index).equals("*")){
 				System.out.println("Reserved word");
-				output.add(s+"*");	
+				output+=(s+"*");	
 			}
 			else if (symbol.get(index).equals("?")){
 				// not fist time you have seen the identifier
 				symbol.set(index, "@");
-				output.add(s+"@");
+				output+=(s+"@");
 			}
 		}
 		
@@ -257,9 +257,14 @@ public class DFSATrie {
 		
 		identifiers.add(s);
 		if(isProgram ==true){
-			output.add(s+endSymbol);
+			output+=(s+endSymbol);
 		}
 	}
-	
+	/**
+	 * append a new line char to the output array
+	 */
+	public void addNewLine(){
+		output+="\n";
+	}
 
 }
