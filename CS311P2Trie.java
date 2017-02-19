@@ -20,7 +20,15 @@ public class CS311P2Trie {
 			 * start file read  for all Reserved Words using a buffered reader 
 			 */
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
-			
+			while (br.ready()){
+				String [] input = br.readLine().split(" ") ;
+				for (String s: input){
+//					System.out.println(s);
+					trie.processIdentifier(s, '*', false);
+				}
+			}
+			trie.printSwitch();
+			trie.printSymbolNextArray();
 
 
 
