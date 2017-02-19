@@ -7,9 +7,9 @@ import java.util.TreeMap;
 
 public class DFSATrie {
 	/**
-	 * String output is the output that the DFSA is going to add in for the begining 
+	 * ArrayList output is the output that the DFSA is going to add in for the begining 
 	 */
-	static String output =""; 
+	static ArrayList<String> output =new ArrayList<String>(); 
 	/**
 	 * switch array is the array list that contains all the switch start 
 	 */
@@ -189,9 +189,9 @@ public class DFSATrie {
 	/**
 	 * after updating the arrays, add the identifier into our output list and store it 
 	 */
-	private static void processIdentifier(String s, char endSymbol){
+	private static void processIdentifier(String s, char endSymbol, boolean isProgram){
 		if (hasIdentifier(s) ==false){
-			newIdentifier(s, endSymbol);
+			newIdentifier(s, endSymbol, isProgram);
 		}
 		else {
 			int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
@@ -206,16 +206,17 @@ public class DFSATrie {
 			}
 			if (symbol.get(index).equals("*")){
 				System.out.println("Reserved word");
-				output+=s+"*";	
+				output.add(s+"*");	
 			}
 			else if (symbol.get(index).equals("?")){
 				// not fist time you have seen the identifier
 				symbol.set(index, "@");
+				output.add(s+"@");
 			}
 		}
 		
 	}
-	private static void newIdentifier(String s, char endSymbol) {
+	private static void newIdentifier(String s, char endSymbol, boolean isProgram) {
 
 		//we haven't dealt with this identifier 
 		if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
@@ -258,6 +259,9 @@ public class DFSATrie {
 		}
 		
 		identifiers.add(s);
+		if(isProgram ==true){
+			output.add(s+endSymbol);
+		}
 	}
 	public static void main(String[] args) {
 		String fileName= "Proj2_Input1.txt";
@@ -266,10 +270,10 @@ public class DFSATrie {
 			 * initalize switch table 
 			 */
 			createSwitchTable(); 
-			processIdentifier("anuja", '?');
+			processIdentifier("anuja", '?', false);
 			printSwitch(); 
 			printSymbolNextArray(); 
-			processIdentifier("anuja", '#');
+			processIdentifier("anuja", '#', true);
 			printSwitch(); 
 			printSymbolNextArray(); 
 			//			
