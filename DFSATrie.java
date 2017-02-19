@@ -6,10 +6,10 @@ import java.util.TreeMap;
 
 
 public class DFSATrie {
-//	/**
-//	 * String output is the output that the DFSA is going to add in for the begining 
-//	 */
-//	String output; 
+	/**
+	 * String output is the output that the DFSA is going to add in for the begining 
+	 */
+	static String output =""; 
 	/**
 	 * switch array is the array list that contains all the switch start 
 	 */
@@ -189,20 +189,35 @@ public class DFSATrie {
 	/**
 	 * after updating the arrays, add the identifier into our output list and store it 
 	 */
-	private static void addIdentifier(String s, char endSymbol){
+	private static void processIdentifier(String s, char endSymbol){
 		if (hasIdentifier(s) ==false){
 			newIdentifier(s, endSymbol);
 		}
 		else {
-			
+			int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
+			for (int charIndex = 1; charIndex <s.length(); charIndex++){
+				if (symbol.get(index).equals(s.charAt(charIndex)+"")){
+					index++;
+				}
+				else{
+					index = next.get(index);
+					charIndex--;
+				}
+			}
+			if (symbol.get(index).equals("*")){
+				System.out.println("Reserved word");
+				output+=s+"*";	
+			}
+			else if (symbol.get(index).equals("?")){
+				// not fist time you have seen the identifier
+				symbol.set(index, "@");
+			}
 		}
 		
 	}
 	private static void newIdentifier(String s, char endSymbol) {
 
 		//we haven't dealt with this identifier 
-		System.out.println(alphabetTable.get(s.charAt(0)+""));
-		System.out.println(switchArray[alphabetTable.get(s.charAt(0)+"")]);
 		if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
 			// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
 			switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
@@ -216,34 +231,25 @@ public class DFSATrie {
 			// there is an identifier that starts with this letter 
 			int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
 			for (int charIndex=1; charIndex<s.length(); charIndex++){
-				System.out.println(s.charAt(charIndex) + "Char");
 				if (index !=-1){
 					// we need to parse the symbol array 
 					if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
 						index++;
-						System.out.println("Update Index " + index );
 					}
 					else{
-						System.out.println("ELSE");
 						int tempIndex = index;
-						System.out.println("Temp Index" + tempIndex);
 						index = next.get(index);
 						if (index == -1){
-							System.out.println("need to add to the end of array ");
 							next.set(tempIndex, next.size());
 						}
-						System.out.println("New Index " + index);
 						charIndex --; 
 					}
 				}
-				else { 
-					System.out.println("Outer Else");
-					
+				else { 					
 					addSymbol(s.charAt(charIndex));
 					
 				}
 			}
-			System.out.println("Index " + index);
 			if (index>=0){
 				next.set(index, next.size());
 				
@@ -260,16 +266,10 @@ public class DFSATrie {
 			 * initalize switch table 
 			 */
 			createSwitchTable(); 
-			addIdentifier("anuja", '*');
+			processIdentifier("anuja", '?');
 			printSwitch(); 
 			printSymbolNextArray(); 
-			addIdentifier("an", '*');
-			printSwitch(); 
-			printSymbolNextArray(); 
-			addIdentifier("anujas", '*');
-			printSwitch(); 
-			printSymbolNextArray(); 
-			addIdentifier("ban", '*');
+			processIdentifier("anuja", '#');
 			printSwitch(); 
 			printSymbolNextArray(); 
 			//			
