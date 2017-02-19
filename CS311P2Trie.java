@@ -27,25 +27,29 @@ public class CS311P2Trie {
 					trie.processIdentifier(s, '*', false);
 				}
 			}
-//			trie.printSwitch();
-//			trie.printSymbolNextArray();
+			trie.printSwitch();
+			trie.printSymbolNextArray();
 			
-			/**
-			 * start reading the program and processing it 
-			 */
-			fileName = "Proj2_Input2.txt";
-			br = new BufferedReader(new FileReader(fileName));
-			while (br.ready()){
-				String line = br.readLine();
-				//ArrayList <String> identifiers = new ArrayList<String>();
-				String [] identifiers = line.split("[\\p{Punct}\\s]+");
-				for (String s: identifiers){
-					if (s.equals("")){
-						
-					}
-				}
-				
-			}
+//			/**
+//			 * start reading the program and processing it 
+//			 */
+//			fileName = "Proj2_Input2.txt";
+//			br = new BufferedReader(new FileReader(fileName));
+//			while (br.ready()){
+//				String line = br.readLine();
+//				//ArrayList <String> identifiers = new ArrayList<String>();
+//				String [] identifiers = line.split("[\\p{Punct}\\s]+");
+//				for (String s: identifiers){
+//					if (!s.equals("")){
+//						System.out.println(s);
+//						trie.processIdentifier(s, '?', false);
+//						System.out.println("HI");
+//					}
+//				}
+//				//trie.addNewLine();
+//				
+//			}
+			//System.out.println(trie.getOutput());
 
 
 

@@ -49,8 +49,18 @@ public class DFSATrie {
 		int size = symbol.size(); 
 		int tempSymbol = 0; 
 		int tempNext=0;
+		int tempIndex =0; 
 
 		while(size>0 && tempSymbol<size && tempNext<size){
+			if (tempIndex %20 ==0){
+				System.out.print("\nIndex: ");
+				System.out.printf("%5s", tempIndex );
+				tempIndex++; 
+			}
+			while(tempIndex%20!=0 && tempIndex<size){
+				System.out.printf("%5s", tempIndex);
+				tempIndex++; 
+			}
 			if (tempSymbol%20==0){
 				System.out.print("\nSymbol:");
 				System.out.printf("%5s", symbol.get(tempSymbol));
@@ -191,12 +201,15 @@ public class DFSATrie {
 			newIdentifier(s, endSymbol, isProgram);
 		}
 		else {
+			
 			int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
 			for (int charIndex = 1; charIndex <s.length(); charIndex++){
+				System.out.println("CHAR IND" + charIndex + "\t ind " + index);
 				if (symbol.get(index).equals(s.charAt(charIndex)+"")){
 					index++;
 				}
 				else{
+					System.out.println("JO");
 					index = next.get(index);
 					charIndex--;
 				}
@@ -265,6 +278,9 @@ public class DFSATrie {
 	 */
 	public void addNewLine(){
 		output+="\n";
+	}
+	public String getOutput(){
+		return output;
 	}
 
 }
