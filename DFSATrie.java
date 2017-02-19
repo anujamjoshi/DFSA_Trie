@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.TreeMap;
 
 
@@ -48,7 +45,7 @@ public class DFSATrie {
 	/**
 	 * Prints the next and symbol array with proper format
 	 */
-	private static void printSymbolNextArray() {
+	void printSymbolNextArray() {
 		int size = symbol.size(); 
 		int tempSymbol = 0; 
 		int tempNext=0;
@@ -82,7 +79,7 @@ public class DFSATrie {
 	/**
 	 * initializes the switch table with -1 and hash table to map the letters, and the _ and $ to indexes
 	 */
-	private static void createSwitchTable(){
+	void createSwitchTable(){
 		/*
 		 * create the array Lists to store the switch and create a hash table to store the matching indexes for each alphabet  
 		 */
@@ -107,7 +104,7 @@ public class DFSATrie {
 	/**
 	 * prints the switch table with proper formatting 
 	 */
-	private static void printSwitch() {
+	void printSwitch() {
 		System.out.printf("%8s"," ");
 		for (char c = 'A'; c <='T'; c++){
 			System.out.printf("%5s", c);
@@ -189,7 +186,7 @@ public class DFSATrie {
 	/**
 	 * after updating the arrays, add the identifier into our output list and store it 
 	 */
-	private static void processIdentifier(String s, char endSymbol, boolean isProgram){
+	void processIdentifier(String s, char endSymbol, boolean isProgram){
 		if (hasIdentifier(s) ==false){
 			newIdentifier(s, endSymbol, isProgram);
 		}
@@ -263,32 +260,6 @@ public class DFSATrie {
 			output.add(s+endSymbol);
 		}
 	}
-	public static void main(String[] args) {
-		String fileName= "Proj2_Input1.txt";
-		try{
-			/*
-			 * initalize switch table 
-			 */
-			createSwitchTable(); 
-			processIdentifier("anuja", '?', false);
-			printSwitch(); 
-			printSymbolNextArray(); 
-			processIdentifier("anuja", '#', true);
-			printSwitch(); 
-			printSymbolNextArray(); 
-			//			
-			/*
-			 * start file read using a buffered reader 
-			 */
-			BufferedReader br = new BufferedReader(new FileReader(fileName));
-
-
-
-		}
-		catch(Exception e){
-			System.out.println("ERROR IN OUTER TRY");
-		}
-
-	}
+	
 
 }
