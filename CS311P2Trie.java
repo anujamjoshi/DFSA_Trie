@@ -12,14 +12,14 @@ public class CS311P2Trie {
 		DFSATrie trie = new DFSATrie();
 		String fileName= "Proj2_Input1.txt";
 		try{
-			/*
+			/**
 			 * initalize switch table 
 			 */
-			trie.createSwitchTable(); 
-			//			
-			/*
+			trie.createSwitchTable(); 		
+			/**
 			 * start file read  for all Reserved Words using a buffered reader 
 			 */
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			while (br.ready()){
 				String [] input = br.readLine().split(" ") ;
@@ -27,12 +27,6 @@ public class CS311P2Trie {
 					trie.processReserved(s);
 				}
 			}
-//			System.out.println("___________");
-//			trie.processReserved("i");
-//			System.out.println("___________");
-//
-//			trie.printSwitch();
-//			trie.printSymbolNextArray();
 			
 			/**
 			 * start reading the program and processing it 
@@ -41,20 +35,21 @@ public class CS311P2Trie {
 			br = new BufferedReader(new FileReader(fileName));
 			while (br.ready()){
 				String line = br.readLine();
-				//ArrayList <String> identifiers = new ArrayList<String>();
 				String [] identifiers = line.split("[\\p{Punct}\\s]+");
 				for (String s: identifiers){
 					if (!s.equals("") && !Character.isDigit(s.charAt(0))){
-						//System.out.println("___________________\n"+s);
 						trie.processProgram(s);
 					}
 				}
-			//	trie.addNewLine();
+				if (identifiers.length > 0){
+					trie.addNewLine();
+				}
+				
 				
 			}
 			trie.printSwitch();
 			trie.printSymbolNextArray();
-		//	System.out.println(trie.getOutput());
+			System.out.println(trie.getOutput());
 
 
 

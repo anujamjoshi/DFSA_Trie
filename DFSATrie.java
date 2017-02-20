@@ -172,40 +172,38 @@ public class DFSATrie {
 			addNewIdentifier(s, '*' );
 			reservedWords.add(s);
 		}
-
 	}
 	/**
 	 *  this method is for the second input file 
+	 *  @param s
 	 */
 	void processProgram(String s ){
 		if (reservedWords.contains(s)){
-			// this is a reserved word, it's in the file just add it to the output 
-		//	System.out.println("Reserved");
-			output+= s +"*";
+			/**
+			 *  this is a reserved word, it's in the file just add it to the output 
+			 */
+			output+= s +"* ";
 		}
 		else{ 
-			/*
+			/**
 			 * check to see if it is a new identifier. if it is then add it to the arrays and to the output as well 
 			 */
 			if (hasIdentifier(s) == false && isReserved(s) == false){
-			//	System.out.println("New Identifier ");
 				addNewIdentifier(s, '?');
 				identifiers.add(s);
-				output+= s+"?";
+				output+= s+"? ";
 			}
 			else{
-				/*
+				/**
 				 * parse through the list and change the ? to a @ or make sure it is an @
 				 */
-//				System.out.println("Old Identifier");
 				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
 				for (int charIndex = 1; charIndex <s.length(); charIndex++){
 					
 					
 				}
-//					System.out.println(index + "HIFJ");
 					symbol.set(index, "@");
-					output+= s +"@";
+					output+= s +"@ ";
 			}
 		}
 		
@@ -218,7 +216,9 @@ public class DFSATrie {
 	 */
 	
 	private void addNewIdentifier(String s, char c) {
-		//we haven't dealt with this identifier 
+		/**
+		 * we haven't dealt with this identifier 
+		 */
 				if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
 					// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
 					switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
@@ -230,11 +230,15 @@ public class DFSATrie {
 				}
 				else{
 					
-					// there is an identifier that starts with this letter 
+					/**
+					 * there is an identifier that starts with this letter 
+					 */
 					int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
 					for (int charIndex=1; charIndex<s.length(); charIndex++){
 						if (index !=-1){
-							// we need to parse the symbol array 
+							/**
+							 * we need to parse the symbol array 
+							 */
 							if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
 								index++;
 							}
@@ -242,7 +246,6 @@ public class DFSATrie {
 								int tempIndex = index;
 								index = next.get(tempIndex);
 								if (index == -1){
-								//	System.out.println("CHANGe");
 									next.set(tempIndex, next.size());
 									
 								}
@@ -255,7 +258,7 @@ public class DFSATrie {
 						}
 					}
 					if (index>=0){
-						/* 
+						/**
 						 * we need to go to the correct next index, so continue parsing until you reach an next value of -1
 						 */
 						while(next.get(index)!=-1){
@@ -268,6 +271,20 @@ public class DFSATrie {
 				}
 				
 				identifiers.add(s);		
+	}
+	/**
+	 * adds a new line character to the output string 
+	 */
+	public void addNewLine() {
+		output+="\n";
+		
+	}
+	/**
+	 * gets the output string 
+	 * @return output
+	 */
+	public String getOutput(){
+		return output;
 	}
 
 }
