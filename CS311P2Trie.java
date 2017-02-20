@@ -24,28 +24,27 @@ public class CS311P2Trie {
 			while (br.ready()){
 				String [] input = br.readLine().split(" ") ;
 				for (String s: input){
-					trie.processIdentifier(s, '*', false);
+					trie.processReserved(s);
 				}
 			}
 			trie.printSwitch();
 			trie.printSymbolNextArray();
 			
-//			/**
-//			 * start reading the program and processing it 
-//			 */
-//			fileName = "Proj2_Input2.txt";
-//			br = new BufferedReader(new FileReader(fileName));
-//			while (br.ready()){
-//				String line = br.readLine();
-//				//ArrayList <String> identifiers = new ArrayList<String>();
-//				String [] identifiers = line.split("[\\p{Punct}\\s]+");
-//				for (String s: identifiers){
-//					if (!s.equals("")){
-//						System.out.println(s);
-//						trie.processIdentifier(s, '?', false);
-//						System.out.println("HI");
-//					}
-//				}
+////			/**
+////			 * start reading the program and processing it 
+////			 */
+////			fileName = "Proj2_Input2.txt";
+////			br = new BufferedReader(new FileReader(fileName));
+////			while (br.ready()){
+////				String line = br.readLine();
+////				//ArrayList <String> identifiers = new ArrayList<String>();
+////				String [] identifiers = line.split("[\\p{Punct}\\s]+");
+////				for (String s: identifiers){
+////					if (!s.equals("") && !Character.isDigit(s.charAt(0))){
+////						System.out.println("___________________\n"+s);
+////						trie.processIdentifier(s, '?', true);
+////					}
+////				}
 //				//trie.addNewLine();
 //				
 //			}
