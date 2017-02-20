@@ -3,6 +3,10 @@ import java.util.TreeMap;
 
 
 public class DFSATrie {
+	/** 
+	 *  this is the output for the file reading 
+	 */
+	public String output ="";
 	/**
 	 * switch array is the array list that contains all the switch start 
 	 */
@@ -159,6 +163,10 @@ public class DFSATrie {
 
 	}
 
+	/**
+	 * this method is for the first input file 
+	 * @param s
+	 */
 	void processReserved(String s){
 		if (hasIdentifier(s) ==false && isReserved(s)==false){
 			addNewIdentifier(s, '*' );
@@ -166,6 +174,49 @@ public class DFSATrie {
 		}
 
 	}
+	/**
+	 *  this method is for the second input file 
+	 */
+	void processProgram(String s ){
+		if (reservedWords.contains(s)){
+			// this is a reserved word, it's in the file just add it to the output 
+		//	System.out.println("Reserved");
+			output+= s +"*";
+		}
+		else{ 
+			/*
+			 * check to see if it is a new identifier. if it is then add it to the arrays and to the output as well 
+			 */
+			if (hasIdentifier(s) == false){
+			//	System.out.println("New Identifier ");
+				addNewIdentifier(s, '?');
+				identifiers.add(s);
+				output+= s+"?";
+			}
+//			else{
+//				/*
+//				 * parse through the list and change the ? to a @ or make sure it is an @
+//				 */
+//				System.out.println("Old Identifier");
+//				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
+//				for (int charIndex = 1; charIndex <s.length(); charIndex++){
+//					
+//					
+//				}
+//					System.out.println(index + "HIFJ");
+//					symbol.set(index, "@");
+//					output+= s +"@";
+//			}
+		}
+		
+	}
+	/**
+	 * This method takes in the identifier that has not been processed,
+	 *  and adds it into the array list with the end symbol of c 
+	 * @param s
+	 * @param c
+	 */
+	
 	private void addNewIdentifier(String s, char c) {
 		//we haven't dealt with this identifier 
 				if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
