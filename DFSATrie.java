@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-
+/**
+ * 
+ * @author Anuja Joshi
+ * This is the DFSA Trie object class for the Project
+ *
+ */
 public class DFSATrie {
 	/** 
 	 *  this is the output for the file reading 
@@ -59,15 +64,15 @@ public class DFSATrie {
 		int tempIndex =0; 
 
 		while(size>0 && tempSymbol<size && tempNext<size){
-			if (tempIndex %20 ==0){
-				System.out.print("\nIndex: ");
-				System.out.printf("%5s", tempIndex );
-				tempIndex++; 
-			}
-			while(tempIndex%20!=0 && tempIndex<size){
-				System.out.printf("%5s", tempIndex);
-				tempIndex++; 
-			}
+						if (tempIndex %20 ==0){
+							System.out.print("\nIndex: ");
+							System.out.printf("%5s", tempIndex );
+							tempIndex++; 
+						}
+						while(tempIndex%20!=0 && tempIndex<size){
+							System.out.printf("%5s", tempIndex);
+							tempIndex++; 
+						}
 			if (tempSymbol%20==0){
 				System.out.print("\nSymbol:");
 				System.out.printf("%5s", symbol.get(tempSymbol));
@@ -79,11 +84,20 @@ public class DFSATrie {
 			}
 			if (tempNext%20==0){
 				System.out.print("\n next: ");
-				System.out.printf("%5s", next.get(tempNext));
+				if(next.get(tempNext)!=-1){
+					System.out.printf("%5s", next.get(tempNext));
+				}
+				else{
+					System.out.printf("%5s", "    ");
+				}
 				tempNext++; 
 			}
 			while(tempNext%20!=0 && tempNext<size){
-				System.out.printf("%5s", next.get(tempNext));
+				if(next.get(tempNext)!=-1)
+					System.out.printf("%5s", next.get(tempNext));
+				else{
+					System.out.printf("%5s", "   ");
+				}
 				tempNext++; 
 			}
 			System.out.println();
@@ -199,14 +213,14 @@ public class DFSATrie {
 				 */
 				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
 				for (int charIndex = 1; charIndex <s.length(); charIndex++){
-					
-					
+
+
 				}
-					symbol.set(index, "@");
-					output+= s +"@ ";
+				symbol.set(index, "@");
+				output+= s +"@ ";
 			}
 		}
-		
+
 	}
 	/**
 	 * This method takes in the identifier that has not been processed,
@@ -214,70 +228,70 @@ public class DFSATrie {
 	 * @param s
 	 * @param c
 	 */
-	
+
 	private void addNewIdentifier(String s, char c) {
 		/**
 		 * we haven't dealt with this identifier 
 		 */
-				if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
-					// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
-					switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
-					// add the rest of the symbols to the end of the symbol and next list
-					for (int characterIndex = 1; characterIndex <s.length(); characterIndex++ ){
-						addSymbol(s.charAt(characterIndex));
-					}
-					addSymbol(c);
-				}
-				else{
-					
+		if (switchArray[alphabetTable.get(s.charAt(0)+"")]== -1){
+			// there isn't an identifier that starts with the letter so change the swtichArray to symbol.length
+			switchArray[alphabetTable.get(s.charAt(0)+"")] = symbol.size();
+			// add the rest of the symbols to the end of the symbol and next list
+			for (int characterIndex = 1; characterIndex <s.length(); characterIndex++ ){
+				addSymbol(s.charAt(characterIndex));
+			}
+			addSymbol(c);
+		}
+		else{
+
+			/**
+			 * there is an identifier that starts with this letter 
+			 */
+			int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
+			for (int charIndex=1; charIndex<s.length(); charIndex++){
+				if (index !=-1){
 					/**
-					 * there is an identifier that starts with this letter 
+					 * we need to parse the symbol array 
 					 */
-					int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
-					for (int charIndex=1; charIndex<s.length(); charIndex++){
-						if (index !=-1){
-							/**
-							 * we need to parse the symbol array 
-							 */
-							if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
-								index++;
-							}
-							else {
-								int tempIndex = index;
-								index = next.get(tempIndex);
-								if (index == -1){
-									next.set(tempIndex, next.size());
-									
-								}
-								charIndex --; 
-							}
-						}
-						else { 					
-							addSymbol(s.charAt(charIndex));
-							
-						}
+					if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
+						index++;
 					}
-					if (index>=0){
-						/**
-						 * we need to go to the correct next index, so continue parsing until you reach an next value of -1
-						 */
-						while(next.get(index)!=-1){
-							index = next.get(index);
+					else {
+						int tempIndex = index;
+						index = next.get(tempIndex);
+						if (index == -1){
+							next.set(tempIndex, next.size());
+
 						}
-						next.set(index, next.size());
-						
+						charIndex --; 
 					}
-						addSymbol(c);
 				}
-				
-				identifiers.add(s);		
+				else { 					
+					addSymbol(s.charAt(charIndex));
+
+				}
+			}
+			if (index>=0){
+				/**
+				 * we need to go to the correct next index, so continue parsing until you reach an next value of -1
+				 */
+				while(next.get(index)!=-1){
+					index = next.get(index);
+				}
+				next.set(index, next.size());
+
+			}
+			addSymbol(c);
+		}
+
+		identifiers.add(s);		
 	}
 	/**
 	 * adds a new line character to the output string 
 	 */
 	public void addNewLine() {
 		output+="\n";
-		
+
 	}
 	/**
 	 * gets the output string 

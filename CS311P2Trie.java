@@ -1,8 +1,24 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 
-
+/**
+* CS 311 Formal Languages and Automata
+* Project #2 -dynamic finite state automaton
+* Winter Quarter 2017
+* Professor Dr. Daisy Sang
+* @author Anuja Joshi 
+*
+* Project Description: In this project we created a FSA that will be able to identify 
+* words described in the language and recognize the difference between reserved words 
+* and other identifiers as well 
+*  
+*
+* How to compile, link, and run this program:
+*   1) make sure that Proj2_Input1.txt and Proj2_Input2.txt are within the correct directory before compilation 
+*   2) javac DFSATrie.java
+*   3) javac CS311P2Trie.java
+*   3) java CS311P2Trie
+*/
 public class CS311P2Trie {
 
 	/**
