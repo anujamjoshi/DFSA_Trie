@@ -193,20 +193,20 @@ public class DFSATrie {
 				identifiers.add(s);
 				output+= s+"?";
 			}
-//			else{
-//				/*
-//				 * parse through the list and change the ? to a @ or make sure it is an @
-//				 */
+			else{
+				/*
+				 * parse through the list and change the ? to a @ or make sure it is an @
+				 */
 //				System.out.println("Old Identifier");
-//				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
-//				for (int charIndex = 1; charIndex <s.length(); charIndex++){
-//					
-//					
-//				}
+				int index = switchArray[alphabetTable.get(s.charAt(0)+"")];
+				for (int charIndex = 1; charIndex <s.length(); charIndex++){
+					
+					
+				}
 //					System.out.println(index + "HIFJ");
-//					symbol.set(index, "@");
-//					output+= s +"@";
-//			}
+					symbol.set(index, "@");
+					output+= s +"@";
+			}
 		}
 		
 	}
