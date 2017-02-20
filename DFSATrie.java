@@ -187,7 +187,7 @@ public class DFSATrie {
 			/*
 			 * check to see if it is a new identifier. if it is then add it to the arrays and to the output as well 
 			 */
-			if (hasIdentifier(s) == false){
+			if (hasIdentifier(s) == false && isReserved(s) == false){
 			//	System.out.println("New Identifier ");
 				addNewIdentifier(s, '?');
 				identifiers.add(s);
@@ -238,10 +238,11 @@ public class DFSATrie {
 							if (symbol.get(index).equals(s.charAt(charIndex)+"") && index<symbol.size()){
 								index++;
 							}
-							else{
+							else {
 								int tempIndex = index;
-								index = next.get(index);
+								index = next.get(tempIndex);
 								if (index == -1){
+								//	System.out.println("CHANGe");
 									next.set(tempIndex, next.size());
 									
 								}
@@ -254,6 +255,12 @@ public class DFSATrie {
 						}
 					}
 					if (index>=0){
+						/* 
+						 * we need to go to the correct next index, so continue parsing until you reach an next value of -1
+						 */
+						while(next.get(index)!=-1){
+							index = next.get(index);
+						}
 						next.set(index, next.size());
 						
 					}
